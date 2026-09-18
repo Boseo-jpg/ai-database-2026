@@ -675,3 +675,11 @@ begin transaction;
 - PostgreSQL 기본 트랜잭션이 실행
 - DBeaver에서 트랜잭션 설정을 변경
 - 메뉴 데이터베이스 -> 트랜잭션 모드 -> Manual Commit 으로 변경 후 작업
+
+### 트랜잭션 실습
+
+- Auto-Commit 상태에서 테이블 생성
+- Manual Commit 으로 변경
+- `begin`(DBeaver에서 자동으로 트랜잭션 시작), `commit`, `rollback`
+
+[다음(./README2.md)]
