@@ -115,7 +115,92 @@ FastAPI는 주소와 HTTP 메서드도 파악필요
 - JSON 데이터이므로 파이썬 None 대신 null 사용
 - } 닫기 전 , 는 제거(파이썬은 허용)
 
-
 #### 메모리 기반(DB X) 학생 API 예제
 
 - day05.memorydb.py
+
+### DB연동 FastAPI
+
+- 실제 DB(PostgreSQL)연동, 데이터를 가져와 사용하는 API 웹서버 구현
+
+```bash
+fastapi_postgres/
+│
+├── main.py          # FastAPI 실행 및 API
+├── database.py      # PostgreSQL 연결
+├── models.py        # 데이터 모델
+│
+└── requirements.txt # 필요한 패키지
+```
+
+- 더 간단한 구조 - 우선적 구현할 구조
+
+```bash
+fastapi_postgres/
+│
+├── main.py          # FastAPI 웹 서버
+└── database.py      # PostgreSQL 연결
+```
+
+#### DB 연동 파이썬 패키지 설치
+
+- FastAPI, uvicorn, psycopg
+
+```bash
+pip install psycopg[binary]
+```
+
+- 내 개발환경(파이썬 패키지) 공유. requirements.txt 파일만 전달
+
+```bash
+pip freeze > requirements.txt
+```
+
+- 개발환경 재설치
+
+```bash
+pip install -r requirements.txt
+```
+
+#### 기존 PostgreSQL students 테이블 사용
+
+- 내용 생략
+
+#### database.py
+
+### 디버깅
+
+- Debug - 버그를 고치는 작업
+- 소스코드 작성 60%, 디버그 40% 시간 소요
+- 디버그 단축키 리스트
+  * F5 : 디버그로 실행
+  * F9 : 브레이크 포인트 토글
+  * F10 : 한단계씩 실행(함수 패스)
+  * F11 : 한단계씩 실행(함수내 진입)
+
+#### FastAPI 디버깅
+
+- 기존 FastAPI 코드 외 아래의 디버그 코드 추가
+
+```python
+import uvicorn
+
+# 기존 코드 생략
+
+if __name__ == '__main__':
+    uvicorn.run(
+        'main:app',
+        host='127.0.0.1',
+        port=8000,
+        reload=True,
+        log_level='debug'
+    )
+
+```
+
+- F5(디버그 모드) 로 실행
+- 디버깅 필요한 함수나 로직에 F9로 중단점(Break Point) 활성화
+- 로직 실행하면 중단점에 일시 중단
+- F10/F11로 한 줄씩 실행하면서 로직 처리 결과 모니터링, 조사식과 변수에서 데이터 확인
+- 오류 로직 찾아서 수정
+- 다시 디버깅으로 정상동작 확인하고 완료
